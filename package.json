@@ -1,10 +1,10 @@
 {
   "name": "silly-datetime",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "simple datetime formater",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,11 @@
   "bugs": {
     "url": "https://github.com/csbun/silly-datetime/issues"
   },
-  "homepage": "https://github.com/csbun/silly-datetime"
+  "homepage": "https://github.com/csbun/silly-datetime",
+  "devDependencies": {
+    "coveralls": "^2.11.3",
+    "istanbul": "^0.3.17",
+    "mocha": "^2.2.5",
+    "mocha-lcov-reporter": "0.0.2"
+  }
 }

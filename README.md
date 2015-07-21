@@ -2,6 +2,11 @@
 
 Simple datetime formater
 
+[![NPM](https://nodei.co/npm/silly-datetime.png?compact=true)](https://nodei.co/npm/silly-datetime/)
+
+[![Build Status](https://travis-ci.org/csbun/silly-datetime.svg)](https://travis-ci.org/csbun/silly-datetime)
+[![Coverage Status](https://coveralls.io/repos/csbun/silly-datetime/badge.svg?branch=master&service=github)](https://coveralls.io/github/csbun/silly-datetime?branch=master)
+
 ## Install
 
 ```
