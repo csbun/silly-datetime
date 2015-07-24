@@ -9,8 +9,16 @@ Simple datetime formater
 
 ## Install
 
-```
+### npm
+
+```sh
 npm i silly-datetime --save
+```
+
+### bower
+
+```sh
+bower install silly-datetime --save
 ```
 
 ## Example
