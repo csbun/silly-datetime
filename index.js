@@ -91,7 +91,7 @@
   var LOCALE_ZH_CN = {
     future: '%s内',
     past: '%s前',
-    s: '刚刚',
+    s: '几秒',
     mm: '%s分钟',
     hh: '%s小时',
     dd: '%s天',
@@ -136,7 +136,7 @@
     [ 'dd', 864e5 ],   // 1000 * 60 * 60 * 24
     [ 'hh', 36e5 ],    // 1000 * 60 * 60
     [ 'mm', 6e4 ],     // 1000 * 60
-    [ 's', 1e3 ]       // 1000
+    [ 's',  0 ],       // 只要大于等于 0 都是秒
   ];
 
   /**
@@ -156,8 +156,8 @@
     for (; i < DET_STD.length; i++) {
       detDef = DET_STD[i];
       detDefVal = detDef[1];
-      if (det > detDefVal) {
-        str = _curentLocale[detDef[0]].replace('%s', parseInt(det/detDefVal, 0));
+      if (det >= detDefVal) {
+        str = _curentLocale[detDef[0]].replace('%s', parseInt(det/detDefVal, 0) || 1);
         break;
       }
     }

@@ -39,7 +39,7 @@ sd.fromNow(+new Date() - 2000);
 Format a Date object to specified format.
 
 - datetime: Date Object
-- format: formate string, default to 'YYYY-MM-DD HH:mm:ss'
+- format: formate string, default to `'YYYY-MM-DD HH:mm:ss'`
 
 Format | Example | Description
 ------ | ------- | -----------

@@ -28,8 +28,7 @@ describe('silly-datetime', function () {
 
     var SECOND_AGO = 'a few seconds ago';
     it('test `' + SECOND_AGO + '`', function () {
-      var datetime = +new Date() - 3 * 1000;
-      assert.equal(SECOND_AGO, sd.fromNow(datetime));
+      assert.equal(SECOND_AGO, sd.fromNow(NaN));
     });
 
     var MINUTE = 3;
