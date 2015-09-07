@@ -53,12 +53,8 @@ Format | Example | Description
 `s ss` | `0..59` | Seconds
 
 ```javascript
-var datetime = +new Date() + 10 * 60 * 60 * 1000;
-sd.locate({
-  past: '%s之前',
-  hh: '%s小時'
-}).fromNow(datetime);
-// 10小時之前
+sd.format(new Date(), 'YYYY-MM-DD HH:mm');
+// 2015-07-06 15:10
 ```
 
 ### .fromNow(datetime)
@@ -68,7 +64,6 @@ Time from now. This is sometimes called timeago or relative time.
 - datetime: Date Object
 
 ```javascript
-var sd = require(silly-datetime);
 sd.fromNow(+new Date() - 2000);
 // a few seconds ago
 ```
@@ -79,7 +74,7 @@ Changing locale globally. By default, silly-datetime comes with English locale s
 
 - newLocale: locate string or locate Object
 
-Locate string can be `en`(default) or `zh-cn`;
+Locate string can be `en` (default) or `zh-cn`;
 
 ```javascript
 var datetime = +new Date() + 10 * 60 * 1000;
