@@ -18,6 +18,7 @@ describe('silly-datetime', function () {
     });
   });
 
+
   describe('#fromNow', function () {
     var SECOND_IN = 'in a few seconds';
     it('test `' + SECOND_IN + '`', function () {
@@ -70,4 +71,29 @@ describe('silly-datetime', function () {
       assert.equal(YEAR_AGO, sd.fromNow(datetime));
     });
   });
+
+
+  describe('#locate', function () {
+    var FORMAT_ZH_CN_MINUTE = 10;
+    var FORMAT_ZH_CN = FORMAT_ZH_CN_MINUTE + '分钟内';
+    it('should return as `' + FORMAT_ZH_CN + '`', function () {
+      var datetime = +new Date() + (FORMAT_ZH_CN_MINUTE * 60 + 1) * 1000;
+      assert.equal(
+        FORMAT_ZH_CN,
+        sd.locate('zh-cn').fromNow(datetime)
+      );
+    });
+
+    var FORMAT_ZH_TW_HOUR = 10;
+    var FORMAT_ZH_TW = FORMAT_ZH_TW_HOUR + '小時以内';
+    it('should return as `' + FORMAT_ZH_TW + '`', function () {
+      var datetime = +new Date() + (FORMAT_ZH_TW_HOUR * 60 * 60 + 1) * 1000;
+      assert.equal(
+        FORMAT_ZH_TW,
+        sd.locate({ future: '%s以内', hh: '%s小時' }).fromNow(datetime)
+      );
+    });
+  });
+
+
 });

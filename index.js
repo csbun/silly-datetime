@@ -72,22 +72,72 @@
   };
 
 
+
   /**
-   * const for .fromNow
+   * CONST and VAR for .fromNow
    */
+  // 预设语言：英语
   var LOCALE_EN = {
-    relativeTime: {
-      future: 'in %s',
-      past: '%s ago',
-      s: 'a few seconds',
-      mm: '%s minutes',
-      hh: '%s hours',
-      dd: '%s days',
-      MM: '%s months',
-      yy: '%s years'
-    }
+    future: 'in %s',
+    past: '%s ago',
+    s: 'a few seconds',
+    mm: '%s minutes',
+    hh: '%s hours',
+    dd: '%s days',
+    MM: '%s months',
+    yy: '%s years'
   };
-  var locate = LOCALE_EN;
+  // 预设语言：简体中文
+  var LOCALE_ZH_CN = {
+    future: '%s内',
+    past: '%s前',
+    s: '刚刚',
+    mm: '%s分钟',
+    hh: '%s小时',
+    dd: '%s天',
+    MM: '%s月',
+    yy: '%s年'
+  };
+  // 当前本地化语言对象
+  var _curentLocale = {};
+
+
+  /**
+   * 修改本地化语言
+   * @param  {string|Object}   string: 预设语言 `zh-cn` 或 `en`；Object: 自定义 locate 对象
+   * @return {Object}          this
+   */
+  out.locate = function (arg) {
+    var newLocale, prop;
+    if (typeof arg === 'string') {
+      newLocale = arg === 'zh-cn' ? LOCALE_ZH_CN : LOCALE_EN;
+    } else {
+      newLocale = arg;
+    }
+    for (prop in newLocale) {
+      if (newLocale.hasOwnProperty(prop) && typeof newLocale[prop] === 'string') {
+        _curentLocale[prop] = newLocale[prop];
+      }
+    }
+    return out;
+  };
+  // 初始化本地化语言为 en
+  out.locate('');
+
+
+
+  /**
+   * CONST for .fromNow
+   */
+  // 各计算区间
+  var DET_STD = [
+    [ 'yy', 31536e6 ], // 1000 * 60 * 60 * 24 * 365 一年月按 365 天算
+    [ 'MM', 2592e6 ],  // 1000 * 60 * 60 * 24 * 30 一个月按 30 天算
+    [ 'dd', 864e5 ],   // 1000 * 60 * 60 * 24
+    [ 'hh', 36e5 ],    // 1000 * 60 * 60
+    [ 'mm', 6e4 ],     // 1000 * 60
+    [ 's', 1e3 ]       // 1000
+  ];
 
   /**
    * 计算给出时间和当前时间的时间距离
@@ -95,33 +145,23 @@
    * @return {string}          时间距离
    */
   out.fromNow = function (datetime) {
-    var t = getDateObject(datetime);
-    var now = new Date();
-    var methods = [
-      [ 'yy', 'getFullYear'],
-      [ 'MM', 'getMonth' ],
-      [ 'dd', 'getDate' ],
-      [ 'hh', 'getHours' ],
-      [ 'mm', 'getMinutes' ],
-      [ 's',  'getSeconds' ]
-    ];
-    var i = 0 , m, diff, fullStr, timeStr;
-    for (; i < methods.length; i++) {
-      m = methods[i][1];
-      diff = t[m]() - now[m]();
-      if (diff !== 0) {
-        timeStr = locate.relativeTime[methods[i][0]];
+    var det = +new Date() - (+getDateObject(datetime));
+    var format, str, i = 0, detDef, detDefVal;
+    if (det < 0) {
+      format = _curentLocale.future;
+      det = -det;
+    } else {
+      format = _curentLocale.past;
+    }
+    for (; i < DET_STD.length; i++) {
+      detDef = DET_STD[i];
+      detDefVal = detDef[1];
+      if (det > detDefVal) {
+        str = _curentLocale[detDef[0]].replace('%s', parseInt(det/detDefVal, 0));
         break;
       }
     }
-    if (diff > 0) {
-      fullStr = locate.relativeTime.future;
-    } else {
-      fullStr = locate.relativeTime.past;
-      diff = -diff;
-    }
-    timeStr = timeStr.replace('%s', diff);
-    return fullStr.replace('%s', timeStr);
+    return format.replace('%s', str);
   };
 
   return out;

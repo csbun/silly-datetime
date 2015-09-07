@@ -27,6 +27,9 @@ bower install silly-datetime --save
 var sd = require(silly-datetime);
 sd.format(new Date(), 'YYYY-MM-DD HH:mm');
 // 2015-07-06 15:10
+
+sd.fromNow(+new Date() - 2000);
+// a few seconds ago
 ```
 
 ## Usage
@@ -49,8 +52,60 @@ Format | Example | Description
 `m mm` | `0..59` | Minutes
 `s ss` | `0..59` | Seconds
 
+```javascript
+var datetime = +new Date() + 10 * 60 * 60 * 1000;
+sd.locate({
+  past: '%s之前',
+  hh: '%s小時'
+}).fromNow(datetime);
+// 10小時之前
+```
+
 ### .fromNow(datetime)
 
-Time from now.
+Time from now. This is sometimes called timeago or relative time.
 
 - datetime: Date Object
+
+```javascript
+var sd = require(silly-datetime);
+sd.fromNow(+new Date() - 2000);
+// a few seconds ago
+```
+
+### .locate(newLocale)
+
+Changing locale globally. By default, silly-datetime comes with English locale strings.
+
+- newLocale: locate string or locate Object
+
+Locate string can be `en`(default) or `zh-cn`;
+
+```javascript
+var datetime = +new Date() + 10 * 60 * 1000;
+sd.locate('zh-cn').fromNow(datetime);
+// 10分钟内
+```
+
+Or just pass an custom locate object with any of the key in the table below:
+
+key      | en              | zh-cn
+-------- | --------------- | ------
+`future` | `in %s`         | `%s内`
+`past`   | `%s ago`        | `%s前`
+`s`      | `a few seconds` | `刚刚`
+`mm`     | `%s minutes`    | `%s分钟`
+`hh`     | `%s hours`      | `%s小时`
+`dd`     | `%s days`       | `%s天`
+`MM`     | `%s months`     | `%s月`
+`yy`     | `%s years`      | `%s年`
+
+```javascript
+sd.locate({
+  past: '%s之前',
+  hh: '%s小時'
+});
+var datetime = +new Date() + 10 * 60 * 60 * 1000;
+sd.fromNow(datetime);
+// 10小時之前
+```
