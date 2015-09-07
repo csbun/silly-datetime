@@ -10,7 +10,7 @@
   "newcap": true,
   "noarg": true,
   "noempty": true,
-  "predef": ["describe", "it"],
+  "predef": ["describe", "it", "define"],
   "quotmark": "single",
   "undef": true,
   "unused": true,

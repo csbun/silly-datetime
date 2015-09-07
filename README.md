@@ -33,7 +33,7 @@ sd.format(new Date(), 'YYYY-MM-DD HH:mm');
 
 ### .format(datetime, format)
 
-Format a Date object to specified format
+Format a Date object to specified format.
 
 - datetime: Date Object
 - format: formate string, default to 'YYYY-MM-DD HH:mm:ss'
@@ -48,3 +48,9 @@ Format | Example | Description
 `a A`  | `am pm` | Post or ante meridiem
 `m mm` | `0..59` | Minutes
 `s ss` | `0..59` | Seconds
+
+### .fromNow(datetime)
+
+Time from now.
+
+- datetime: Date Object
