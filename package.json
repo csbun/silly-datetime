@@ -1,8 +1,9 @@
 {
   "name": "silly-datetime",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "simple datetime formater",
-  "main": "index.js",
+  "main": "dest/index.js",
+  "jsnext:main": "src/index.js",
   "scripts": {
     "test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
@@ -21,9 +22,12 @@
   },
   "homepage": "https://github.com/csbun/silly-datetime",
   "devDependencies": {
+    "babel-preset-es2015-rollup": "^1.0.0",
     "coveralls": "^2.11.3",
     "istanbul": "^0.3.17",
     "mocha": "^2.2.5",
-    "mocha-lcov-reporter": "0.0.2"
+    "mocha-lcov-reporter": "0.0.2",
+    "rollup": "^0.21.0",
+    "rollup-plugin-babel": "^2.1.0"
   }
 }

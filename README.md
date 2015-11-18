@@ -78,7 +78,8 @@ Locate string can be `en` (default) or `zh-cn`;
 
 ```javascript
 var datetime = +new Date() + 10 * 60 * 1000;
-sd.locate('zh-cn').fromNow(datetime);
+sd.locate('zh-cn')
+sd.fromNow(datetime);
 // 10分钟内
 ```
 

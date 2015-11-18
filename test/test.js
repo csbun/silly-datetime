@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert');
-var sd = require('../index');
+var sd = require('../');
 
 
 describe('silly-datetime', function () {
@@ -77,9 +77,10 @@ describe('silly-datetime', function () {
     var FORMAT_ZH_CN = FORMAT_ZH_CN_MINUTE + '分钟内';
     it('should return as `' + FORMAT_ZH_CN + '`', function () {
       var datetime = +new Date() + (FORMAT_ZH_CN_MINUTE * 60 + 1) * 1000;
+      sd.locate('zh-cn');
       assert.equal(
         FORMAT_ZH_CN,
-        sd.locate('zh-cn').fromNow(datetime)
+        sd.fromNow(datetime)
       );
     });
 
@@ -87,9 +88,10 @@ describe('silly-datetime', function () {
     var FORMAT_ZH_TW = FORMAT_ZH_TW_HOUR + '小時以内';
     it('should return as `' + FORMAT_ZH_TW + '`', function () {
       var datetime = +new Date() + (FORMAT_ZH_TW_HOUR * 60 * 60 + 1) * 1000;
+      sd.locate({ future: '%s以内', hh: '%s小時' });
       assert.equal(
         FORMAT_ZH_TW,
-        sd.locate({ future: '%s以内', hh: '%s小時' }).fromNow(datetime)
+        sd.fromNow(datetime)
       );
     });
   });
