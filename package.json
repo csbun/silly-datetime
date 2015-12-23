@@ -1,10 +1,11 @@
 {
   "name": "silly-datetime",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "simple datetime formater",
   "main": "dest/index.js",
   "jsnext:main": "src/index.js",
   "scripts": {
+    "prepublish": "node rollup.js",
     "test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "repository": {

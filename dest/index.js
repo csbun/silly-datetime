@@ -71,7 +71,7 @@ var LOCALE_ZH_CN = {
   yy: '%s年'
 };
 // 当前本地化语言对象
-var _curentLocale = {};
+var _curentLocale = undefined;
 
 /**
  * 修改本地化语言
@@ -85,14 +85,15 @@ function locate(arg) {
   } else {
     newLocale = arg;
   }
+  if (!_curentLocale) {
+    _curentLocale = {};
+  }
   for (prop in newLocale) {
     if (newLocale.hasOwnProperty(prop) && typeof newLocale[prop] === 'string') {
       _curentLocale[prop] = newLocale[prop];
     }
   }
 }
-// 初始化本地化语言为 en
-locate('');
 
 /**
  * CONST for .fromNow
@@ -112,6 +113,10 @@ var DET_STD = [['yy', 31536e6], // 1000 * 60 * 60 * 24 * 365 一年月按 365 �
  */
 // 只要大于等于 0 都是秒
 function fromNow(datetime) {
+  if (!_curentLocale) {
+    // 初始化本地化语言为 en
+    locate('');
+  }
   var det = +new Date() - +getDateObject(datetime);
   var format = undefined,
       str = undefined,

@@ -74,7 +74,7 @@ const LOCALE_ZH_CN = {
   yy: '%s年'
 };
 // 当前本地化语言对象
-let _curentLocale = {};
+let _curentLocale;
 
 
 /**
@@ -88,14 +88,15 @@ export function locate(arg) {
   } else {
     newLocale = arg;
   }
+  if (!_curentLocale) {
+    _curentLocale = {};
+  }
   for (prop in newLocale) {
     if (newLocale.hasOwnProperty(prop) && typeof newLocale[prop] === 'string') {
       _curentLocale[prop] = newLocale[prop];
     }
   }
 }
-// 初始化本地化语言为 en
-locate('');
 
 
 /**
@@ -117,6 +118,10 @@ const DET_STD = [
  * @return {string}          时间距离
  */
 export function fromNow(datetime) {
+  if (!_curentLocale) {
+    // 初始化本地化语言为 en
+    locate('');
+  }
   let det = +new Date() - (+getDateObject(datetime));
   let format, str, i = 0, detDef, detDefVal;
   if (det < 0) {
